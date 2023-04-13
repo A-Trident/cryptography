@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hash Generator</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <h3 class="text-center mb-3">Hash Generator</h3>
+          <form>
+            <div class="form-group">
+              <label for="inputString">Input String:</label>
+              <textarea
+                class="form-control"
+                id="inputString"
+                rows="3"
+                required
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label for="hashMethod">Hash Method:</label>
+              <select class="form-control" id="hashMethod">
+                <option value="md5">MD5</option>
+                <option value="sha1">SHA-1</option>
+                <option value="sha224">SHA-224</option>
+                <option value="sha256">SHA-256</option>
+                <option value="sha384">SHA-384</option>
+                <option value="sha512">SHA-512</option>
+                <option value="ripemd160">RIPEMD-160</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="outputHash">Output Hash:</label>
+              <textarea
+                class="form-control"
+                id="outputHash"
+                rows="3"
+                readonly
+              ></textarea>
+            </div>
+          </form>
+          <button class="btn btn-primary" id="generateBtn">
+            Generate Hash
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $("#generateBtn").click(function () {
+          var inputString = $("#inputString").val();
+          var hashMethod = $("#hashMethod").val();
+          var outputHash = "";
+
+          switch (hashMethod) {
+            case "md5":
+              outputHash = CryptoJS.MD5(inputString).toString();
+              break;
+            case "sha1":
+              outputHash = CryptoJS.SHA1(inputString).toString();
+              break;
+            case "sha224":
+              outputHash = CryptoJS.SHA224(inputString).toString();
+              break;
+            case "sha256":
+              outputHash = CryptoJS.SHA256(inputString).toString();
+              break;
+            case "sha512":
+              outputHash = CryptoJS.SHA512(inputString).toString();
+              break;
+            case "ripemd160":
+              outputHash = CryptoJS.RIPEMD160(inputString).toString();
+              break;
+
+            default:
+              alert("Invalid hash method selected");
+              return;
+          }
+
+          $("#outputHash").val(outputHash);
+        });
+      });
+    </script>
+  </body>
+</html>

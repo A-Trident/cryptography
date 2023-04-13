@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Age Calculator</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h3 class="text-center mb-3">Age Calculator</h3>
+      <form>
+        <div class="form-group">
+          <label for="birthdate">Birthdate:</label>
+          <input type="date" class="form-control" id="birthdate" required>
+        </div>
+        <div class="form-group text-center">
+          <button type="button" class="btn btn-primary" id="calculateAge">Calculate Age</button>
+        </div>
+        <div class="form-group">
+          <label for="result">Your age is:</label>
+          <input type="text" class="form-control" id="result" readonly>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+$(document).ready(function() {
+  $("#calculateAge").click(function() {
+    var birthdate = new Date($("#birthdate").val());
+    var today = new Date();
+    var ageYears = today.getFullYear() - birthdate.getFullYear();
+    var ageMonths = today.getMonth() - birthdate.getMonth();
+    var ageDays = today.getDate() - birthdate.getDate();
+    if (ageMonths < 0 || (ageMonths === 0 && ageDays < 0)) {
+        ageYears--;
+        ageMonths += 12;
+        if (ageDays < 0) {
+            var monthDays = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+            ageDays += monthDays;
+            ageMonths--;
+        }
+    }
+    var ageString = ageYears + " years";
+    if (ageMonths > 0) {
+        ageString += ", " + ageMonths + " months";
+    }
+    if (ageDays > 0) {
+        ageString += ", " + ageDays + " days";
+    }
+    $("#result").val(ageString);
+  });
+});
+
+</script>
+
+</body>
+</html>
